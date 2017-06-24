@@ -12,6 +12,7 @@
     "react-native": "0.45.1",
     "react-native-fit-image": "^1.4.8",
     "react-native-image-zoom-viewer": "^2.0.6",
+    "react-native-splash-screen": "^2.1.0",
     "react-native-vector-icons": "^4.2.0",
     "react-navigation": "^1.0.0-beta.11"
   },

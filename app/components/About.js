@@ -24,7 +24,7 @@ export default class About extends Component {
             data: [
                 {
                     title: '作者',
-                    content: '深红(https://github.com/deepred5)',
+                    content: '深红',
                     url: 'https://github.com/deepred5'
                 },
                 {

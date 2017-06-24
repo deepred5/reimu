@@ -14,4 +14,6 @@ import {
 import App from './app/App';
 
 
+
+
 AppRegistry.registerComponent('reimu', () => App);
