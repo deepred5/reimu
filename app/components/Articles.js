@@ -5,7 +5,9 @@ import {
     View,
     TouchableNativeFeedback,
     FlatList,
-    ToastAndroid
+    ToastAndroid,
+    RefreshControl,
+    ToolbarAndroid
 } from 'react-native';
 
 import FitImage from 'react-native-fit-image';
@@ -15,15 +17,12 @@ import LoadingIndicator from './LoadingIndicator';
 
 import articleParser from '../parser/articleParser';
 
-const intersexPerson = ['小8酱', '晴舒天下', '伪装布雷舰', '深红', 'Kung', '小⑨酱', '文文'];
-
-
-
 export default class Articles extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
+            isRefresh: false,
             data: [],
             currentPage: 1,
             totalPages: 1
@@ -36,7 +35,10 @@ export default class Articles extends Component {
 
     goDetail(article) {
         const {navigate} = this.props.navigation;
-        navigate('Detail', {article: article})
+        console.log(this.props.navigation);
+        navigate('Detail', {article: article});
+
+        console.log(navigate('Detail', {article: article}))
     }
 
     renderArticle = (article) => {
@@ -58,7 +60,7 @@ export default class Articles extends Component {
                             <Text>&nbsp;&nbsp;{article.time}</Text>
                         </View>
                         <View style={styles.info}>
-                            {intersexPerson.indexOf(article.author) > -1 ? (
+                            {this.props.intersexPerson.indexOf(article.author) > -1 ? (
                                 <Icon name="intersex" size={15}/>) : (
                                 <Icon name="mars" size={15}/>)}
                             <Text>&nbsp;&nbsp;{article.author}</Text>
@@ -77,7 +79,7 @@ export default class Articles extends Component {
         );
     };
 
-    fetchData() {
+    fetchData(isRefresh = false) {
         console.log('fetch');
         fetch(`${this.props.api}${this.state.currentPage}`)
             .then((res) => res.text())
@@ -85,8 +87,9 @@ export default class Articles extends Component {
                 let {data, totalPages} = articleParser(html);
                 console.log(data);
                 this.setState({
-                    data: this.state.data.concat(data),
+                    data: isRefresh ? data : this.state.data.concat(data),
                     isLoading: false,
+                    isRefresh: false,
                     totalPages: totalPages,
                     currentPage: ++this.state.currentPage
                 });
@@ -95,6 +98,7 @@ export default class Articles extends Component {
                 ToastAndroid.show('加载失败', ToastAndroid.SHORT);
                 this.setState({
                     isLoading: false,
+                    isRefresh: false
                 });
                 console.log(e);
             })
@@ -115,6 +119,15 @@ export default class Articles extends Component {
 
     };
 
+    onRefresh = () => {
+        this.setState({
+            isRefresh: true,
+            currentPage: 1,
+            totalPages: 1
+        }, () => {
+            this.fetchData(true)
+        });
+    };
 
     render() {
 
@@ -125,7 +138,14 @@ export default class Articles extends Component {
                           renderItem={({item}) => this.renderArticle(item)}
                           onEndReached={this.onEndReached}
                           onEndReachedThreshold={0.5}
-                >
+                          refreshControl={
+                              <RefreshControl
+                                  refreshing={this.state.isRefresh}
+                                  onRefresh={this.onRefresh}
+                                  colors={['#55c3dc']}
+                              />
+                          }>
+                    >
                 </FlatList>
             </View>
         );
@@ -133,7 +153,9 @@ export default class Articles extends Component {
 };
 
 Articles.defaultProps = {
-    api: 'https://blog.reimu.net/page/'
+    api: 'https://blog.reimu.net/page/',
+    intersexPerson: ['小8酱', '晴舒天下', '伪装布雷舰', '深红', 'Kung', '小⑨酱',
+        '文文', '野生投稿姬', '小⑨酱', '缘酱']
 };
 
 

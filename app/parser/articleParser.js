@@ -5,8 +5,11 @@ export default function articleParser(html) {
     let $ = cheerio.load(html);
     let articles = $('article').not('.sticky');
     let data = [];
+    let last = null;
 
-    let last = $('.wp-pagenavi a').last().attr('href').match(/(\d)+$/);
+    if ($('.wp-pagenavi').has('a').length) {
+        last = $('.wp-pagenavi a').last().attr('href').match(/(\d)+$/);
+    }
 
     let totalPages = last ? last[0] : 1;
 

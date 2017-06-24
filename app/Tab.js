@@ -14,6 +14,11 @@ import Cosplay from './components/Cosplay';
 import Collection from './components/Collection';
 import Picture from './components/Picture';
 import Wallpaper from './components/Wallpaper';
+import Chinese from './components/Chinese';
+import Game from './components/Game';
+import Comic from './components/Comic';
+import Indie from './components/Indie';
+import Music from './components/Music';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
@@ -21,13 +26,18 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const Tab = TabNavigator({
     Status: {screen: Status},
     AllArticles: {screen: AllArticles},
-    ThreeD: {screen: ThreeD},
-    AV: {screen: AV},
     Anime: {screen: Anime},
-    Cosplay: {screen: Cosplay},
     Collection: {screen: Collection},
+    Chinese: {screen: Chinese},
+    Game: {screen: Game},
+    Comic: {screen: Comic},
     Picture: {screen: Picture},
     Wallpaper: {screen: Wallpaper},
+    Music: {screen: Music},
+    ThreeD: {screen: ThreeD},
+    AV: {screen: AV},
+    Cosplay: {screen: Cosplay},
+    Indie: {screen: Indie}
 }, {
     lazy: true,
     backBehavior: 'none',

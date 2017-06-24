@@ -3,29 +3,11 @@ import React, {Component} from 'react';
 import {
     BackHandler,
     ToastAndroid,
-    DrawerLayoutAndroid,
     View,
-    Text
+    StatusBar,
 } from 'react-native';
 
-import {
-    StackNavigator
-} from "react-navigation";
-
-import AllTab from './Tab';
-import Detail from './components/Detail';
-
-AllTab.navigationOptions = {
-    header() {
-        return (
-            <Text>灵梦御所</Text>
-        )
-    }
-};
-const Navigator = StackNavigator({
-    Home: {screen: AllTab},
-    Detail: {screen: Detail}
-});
+import Navigator from  './Navigator';
 
 const LOGOUT_TIME = 2000;
 
@@ -49,21 +31,19 @@ class App extends Component {
     };
 
     render() {
-        var navigationView = (
-            <View style={{flex: 1, backgroundColor: '#fff'}}>
-                <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>深红</Text>
-            </View>
-        );
-
 
         return (
-            <DrawerLayoutAndroid
-                drawerWidth={250}
-                drawerPosition={DrawerLayoutAndroid.positions.Left}
-                renderNavigationView={() => navigationView}>
-                <Navigator/>
-            </DrawerLayoutAndroid>
+                <View style={{flex: 1}}>
+                    <StatusBar
+                        backgroundColor="rgba(85,195,220,0.8)"
+                        barStyle="light-content"
+                    />
+                    <Navigator/>
+                </View>
+
+
         );
+
     }
 }
 

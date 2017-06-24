@@ -131,13 +131,20 @@ export default class Detail extends Component {
                 <View style={styles.line}></View>
             )
         } else if (item.type === 4) {
-            resultView = (
-                <TouchableNativeFeedback onPress={() => this.goOriginal(item)}>
-                    <View style={styles.originalUrlContainer}>
-                        <Text style={[styles.originalUrl]}><Icon name="venus-mars" size={15} />&nbsp;{item.content}</Text>
-                    </View>
-                </TouchableNativeFeedback>
-            );
+
+            if (item.originalUrl === '#') {
+                resultView = null;
+            } else {
+                resultView = (
+                    <TouchableNativeFeedback onPress={() => this.goOriginal(item)}>
+                        <View style={styles.originalUrlContainer}>
+                            <Text style={[styles.originalUrl]}><Icon name="venus-mars" size={15}/>&nbsp;{item.content}
+                            </Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                );
+            }
+
         }
         else {
 

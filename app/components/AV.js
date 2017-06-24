@@ -7,6 +7,10 @@ export default class AV extends Component {
         tabBarLabel: '三次'
     };
 
+    componentDidMount() {
+        console.log('三次');
+    }
+
     render() {
         return <Articles navigation={this.props.navigation} api="https://blog.reimu.net/archives/category/third/page/" />
     }

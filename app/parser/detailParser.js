@@ -81,6 +81,7 @@ export default function detailParser(html) {
 
         item.content = $(this).text().trim();
         item.originalUrl = $(this).attr('href').trim();
+
         item.type = 4;
         data.push(item);
     });
